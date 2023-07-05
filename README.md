@@ -12,7 +12,7 @@ print(moonwiki.__package__) # "moonwiki"
 ```
 ```py
 from moonwiki import moonwiki
-wiki = moonwiki()
+wiki = moonwiki("testWiki")
 
 wiki.run("0.0.0.0", 8080)
 ```
