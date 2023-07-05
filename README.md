@@ -9,7 +9,8 @@ Here are some usage examples:
 import moonwiki
 
 print(moonwiki.__package__) # "moonwiki"
-``````py
+```
+```py
 from moonwiki import moonwiki
 wiki = moonwiki()
 
