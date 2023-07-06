@@ -1,6 +1,6 @@
 # moonwiki
 <center>
-[![](https://img.shields.io/pypi/v/moonwiki?logo=python&logoColor=ffffff)](https://pypi.org/project/moonwiki)
+![](https://img.shields.io/pypi/v/moonwiki?logo=python&logoColor=ffffff)
 </center>
 moonwiki is a wiki application made with Python that doesn't require:
 - A database
