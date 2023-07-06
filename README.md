@@ -1,8 +1,17 @@
 # moonwiki
+<center>
+[![](https://img.shields.io/pypi/v/moonwiki?logo=python&logoColor=ffffff)](https://pypi.org/project/moonwiki)
+</center>
 moonwiki is a wiki application made with Python that doesn't require:
 - A database
 - External modules
 - Too much configuration
+## Install
+You can install moonwiki by using `pip`
+```sh
+pip install moonwiki
+```
+You canconfigure the above command to fit your needs for installing moonwiki
 ## Usage
 Here are some usage examples:
 ```py
