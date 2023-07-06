@@ -1,7 +1,6 @@
 # moonwiki
-<center>
 ![](https://img.shields.io/pypi/v/moonwiki?logo=python&logoColor=ffffff)
-</center>
+
 moonwiki is a wiki application made with Python that doesn't require:
 - A database
 - External modules
