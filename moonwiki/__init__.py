@@ -10,6 +10,17 @@ class moonwiki(object): # A bit of support 4 2.0
 		from http.server import HTTPServer, BaseHTTPRequestHandler
 		import socket
 		from configparser import ConfigParser as Inifile
+		import os
+		cfg = Inifile()
+		if not os.path.isfile(os.path.join(self.wD, "settings.ini")):
+			raise RuntimeError(f"Cannot get {os.path.join(self.wD, 'settings.ini')}")
+		cfg.open(os.path.join(self.wD, "settings.ini"))
+		if "moonwiki" not in cfg:
+			raise NameError("Section \"moonwiki\" missing")
+		reqKeys = ["wiki"]
+		for key in reqKeys:
+			if key not in cfg["moonwiki"]:
+				raise NameError(f"Key {key} at section \"moonwiki\" missing")
 		class moonwikiRequestHandler(BaseHTTPRequestHandler):
 			def do_GET(self):
 				if self.path == "/":
@@ -20,5 +31,5 @@ class moonwiki(object): # A bit of support 4 2.0
 			def log_message(self, format, *args):
 				pass
 		serv = HTTPServer((host, port), moonwikiRequestHandler)
-		print (f"moonwiki running @ http://{socket.gethostbyname(socket.gethostbyaddr(host)[0])}:{port}/")
+		print (f"moonwiki running @ http://{host}:{port}/")
 		serv.serve_forever()
