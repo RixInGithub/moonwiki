@@ -32,6 +32,15 @@ class moonwiki(object): # A bit of support 4 2.0
 			extras = cfg["moonwiki"]["extras"].split(",")
 		def txt2Temp(txt):
 			res = []
+			def parseLine(line):
+				import inspect
+				if line.startswith("^"):
+					headCount = 0
+					while line.startswith("^") and headCount != 6:
+						line = line[1:]
+						headCount += 1
+					return f"<h{str(headCount)}>" + line[1:].lstrip() + f"</h{str(headCount)}>"
+				return "<p>" + line + "</p>"
 			with open(os.path.join(self.wD, cfg["moonwiki"][key] + ".html"), "r") as tempFilIO:
 				for line in tempFilIO.read().split("\n"):
 					resL = line
@@ -42,7 +51,7 @@ class moonwiki(object): # A bit of support 4 2.0
 							line = line.replace("$$$$", "")
 							resL = []
 							for txtL in txt.split("\n"):
-								resL.append(line + txtL)
+								resL.append(line + parseLine(txtL))
 							resL = "\n".join(resL)
 					res.append(resL)
 			return "\n".join(res)
