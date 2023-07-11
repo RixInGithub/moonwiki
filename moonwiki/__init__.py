@@ -13,6 +13,7 @@ class moonwiki(object): # A bit of support 4 2.0
 		import socket
 		from configparser import ConfigParser as Inifile
 		import os
+		import mimetypes
 		cfg = Inifile()
 		if not os.path.isfile(os.path.join(self.wD, "settings.ini")):
 			raise RuntimeError(f"Cannot read {os.path.join(self.wD, 'settings.ini')}")
@@ -26,6 +27,9 @@ class moonwiki(object): # A bit of support 4 2.0
 			if key == "temp":
 				if not os.path.isfile(os.path.join(self.wD, cfg["moonwiki"][key] + ".html")):
 					raise ValueError(f"{os.path.join(self.wD, cfg['moonwiki'][key] + '.html')} is non-existent nor is a file")
+		extras = []
+		if "extras" in cfg["moonwiki"]:
+			extras = cfg["moonwiki"]["extras"].split(",")
 		def txt2Temp(txt):
 			res = []
 			with open(os.path.join(self.wD, cfg["moonwiki"][key] + ".html"), "r") as tempFilIO:
@@ -50,6 +54,12 @@ class moonwiki(object): # A bit of support 4 2.0
 					req.end_headers()
 					with open(os.path.join(self.wD, cfg["moonwiki"]["index"] + ".txt"), "rb") as indexIO:
 						req.wfile.write(txt2Temp(indexIO.read().decode()).encode())
+				if req.path in extras or req.path[1:] in extras:
+					req.send_response(200)
+					mime = mimetypes.guess_type("test." + req.path.split("."))[0]
+					req.send_header("Content-Type", mime if mime else "application/octet-stream")
+					req.end_headers()
+					req.wfile.write(open(os.path.join(self.wD, req.path), "rb").read()) # Could be binary, could be not. In any case, open(...).read() will be some `bytes`
 			def log_message(req, format, *args):
 				pass
 		serv = HTTPServer((host, port), moonwikiRequestHandler)
