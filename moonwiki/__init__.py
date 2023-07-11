@@ -17,7 +17,7 @@ class moonwiki(object): # A bit of support 4 2.0
 		cfg.read(os.path.join(self.wD, "settings.ini"))
 		if "moonwiki" not in cfg:
 			raise NameError("Section \"moonwiki\" missing")
-		reqKeys = ["name", "index"]
+		reqKeys = ["name", "index", "temp"]
 		for key in reqKeys:
 			if key not in cfg["moonwiki"]:
 				raise NameError(f"Key {key} at section \"moonwiki\" missing")
