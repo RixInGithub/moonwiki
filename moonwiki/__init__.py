@@ -33,7 +33,6 @@ class moonwiki(object): # A bit of support 4 2.0
 		def txt2Temp(txt):
 			res = []
 			def parseLine(line):
-				import inspect
 				if line.startswith("^"):
 					headCount = 0
 					while line.startswith("^") and headCount != 6:
