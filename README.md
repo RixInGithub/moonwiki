@@ -10,7 +10,7 @@ You can install moonwiki by using `pip`
 ```sh
 pip install moonwiki
 ```
-You canconfigure the above command to fit your needs for installing moonwiki
+You can configure the above command to fit your needs for installing moonwiki
 ## Usage
 Here are some usage examples:
 ```py
