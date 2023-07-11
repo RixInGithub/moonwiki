@@ -27,7 +27,8 @@ class moonwiki(object): # A bit of support 4 2.0
 					self.send_response(200)
 					self.send_header("Content-type", "text/html")
 					self.end_headers()
-					self.wfile.write("Test server".encode())
+					with open(cfg["moonwiki"]["index"] + ".txt", "rb") as indexIO:
+						self.wfile.write(indexIO.read())
 			def log_message(self, format, *args):
 				pass
 		serv = HTTPServer((host, port), moonwikiRequestHandler)
