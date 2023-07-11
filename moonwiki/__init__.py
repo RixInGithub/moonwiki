@@ -64,10 +64,12 @@ class moonwiki(object): # A bit of support 4 2.0
 						req.wfile.write(txt2Temp(indexIO.read().decode()).encode())
 				if req.path in extras or req.path[1:] in extras:
 					req.send_response(200)
-					mime = mimetypes.guess_type("test." + req.path.split("."))[0]
+					mime = mimetypes.guess_type("test." + req.path.split(".")[-1])[0]
 					req.send_header("Content-Type", mime if mime else "application/octet-stream")
 					req.end_headers()
-					req.wfile.write(open(os.path.join(self.wD, req.path), "rb").read()) # Could be binary, could be not. In any case, open(...).read() will be some `bytes`
+					path = req.path
+					if path.startswith("/"): path = path[1:]
+					req.wfile.write(open(os.path.join(self.wD, path), "rb").read()) # Could be binary, could be not. In any case, open(...).read() will be some `bytes`
 			def log_message(req, format, *args):
 				pass
 		serv = HTTPServer((host, port), moonwikiRequestHandler)
